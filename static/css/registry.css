@@ -1,0 +1,43 @@
+body {
+    font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+html,
+body {
+    font-size: 15px;
+}
+#registry > .segment {
+    margin: 0px 0px 3em;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #DDDDDD;
+}
+.carbonad {
+    display: block;
+    background: #fdfdfd;
+    background-image: -moz-linear-gradient(top, #f8f8f8, #fdfdfd);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f8f8f8), color-stop(1, #fdfdfd));
+    border: 1px solid #d5d5d5;
+    font-family: Lucida Grande, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    height: 95px;
+    line-height: 15px;
+    overflow: hidden;
+    width: 260px;
+    padding-top: 15px;
+}
+#registry .userinfo .carbonad {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+#registry .userinfo .carbonad .avatar {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    width: 64px;
+}
+.carbonad-info {
+    padding-left: 25px;
+}

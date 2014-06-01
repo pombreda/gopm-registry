@@ -15,11 +15,44 @@
 package template
 
 import (
+	"path/filepath"
+	"strings"
+
 	"github.com/astaxie/beego"
 	"github.com/beego/i18n"
+	"github.com/howeyc/fsnotify"
 
+	"github.com/gpmgo/gopm-registry/modules/log"
 	"github.com/gpmgo/gopm-registry/modules/setting"
 )
+
+func monitorI18nLocale() {
+	log.Trace("Monitor i18n locale files enabled")
+
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		log.Fatal("Fail to init locale watcher: %v", err)
+	}
+
+	go func() {
+		for {
+			select {
+			case event := <-watcher.Event:
+				switch filepath.Ext(event.Name) {
+				case ".ini":
+					if err := i18n.ReloadLangs(); err != nil {
+						log.Error("Fail to relaod locale file reloaded: %v", err)
+					}
+					log.Trace("Locale file reloaded: %s", strings.TrimPrefix(event.Name, "conf/locale/"))
+				}
+			}
+		}
+	}()
+
+	if err := watcher.WatchFlags("conf/locale", fsnotify.FSN_MODIFY); err != nil {
+		log.Fatal("Fail to start locale watcher: %v", err)
+	}
+}
 
 func init() {
 	beego.AddFuncMap("AppName", func() string {
@@ -29,4 +62,8 @@ func init() {
 		return setting.AppVer
 	})
 	beego.AddFuncMap("i18n", i18n.Tr)
+
+	if !setting.ProdMode {
+		monitorI18nLocale()
+	}
 }

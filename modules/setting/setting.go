@@ -29,6 +29,7 @@ var (
 	AppVer  string
 
 	Cfg       *goconfig.ConfigFile
+	ProdMode  bool
 	Languages []string
 )
 
@@ -49,6 +50,11 @@ func init() {
 	}
 
 	// Setting up environment.
+	beego.RunMode = Cfg.MustValue("server", "RUN_MODE")
+	if beego.RunMode == "prod" {
+		ProdMode = true
+		log.Info("Production Mode Enabled")
+	}
 	beego.HttpPort = Cfg.MustInt("server", "HTTP_PORT")
 	beego.ViewsPath = "templates"
 }

@@ -4,12 +4,10 @@
 		{{template "base/head.html" .}}
 		{{template "head" .}}
 	</head>
-	<body>
+	<body id="registry" class="Grid">
 		<noscript>{{i18n .Lang "Please enable JavaScript in your browser!"}}</noscript>
 		{{template "base/navbar.html" .}}
-		<div class="container">
-			{{template "body" .}}
-	    </div>
+		{{template "body" .}}
 		{{template "base/footer.html" .}}
 	</body>
 </html>

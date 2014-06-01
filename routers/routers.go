@@ -16,6 +16,7 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
+	"net/http"
 )
 
 type baseRouter struct {
@@ -24,4 +25,12 @@ type baseRouter struct {
 
 func (this *baseRouter) Prepare() {
 	this.Data["Lang"] = "en-US"
+}
+
+type VersionRouter struct {
+	beego.Controller
+}
+
+func (this *VersionRouter) Get() {
+	http.ServeFile(this.Ctx.ResponseWriter, this.Ctx.Request, "conf/VERSION.json")
 }

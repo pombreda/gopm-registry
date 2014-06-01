@@ -26,7 +26,7 @@ import (
 	"github.com/gpmgo/gopm-registry/routers"
 )
 
-const APP_VER = "0.0.0.0531"
+const APP_VER = "0.0.0.0601"
 
 func init() {
 	setting.AppVer = APP_VER
@@ -36,6 +36,7 @@ func main() {
 	log.Info("%s %s", setting.AppName, APP_VER)
 
 	beego.Router("/", &routers.HomeRouter{}, "get:Home")
+	beego.Router("/VERSION.json", &routers.VersionRouter{})
 
 	beego.Run()
 }
